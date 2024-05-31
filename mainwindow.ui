@@ -17,14 +17,14 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>60</x>
       <y>500</y>
       <width>83</width>
       <height>29</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Старт</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -45,29 +45,6 @@
      <rect>
       <x>60</x>
       <y>60</y>
-      <width>211</width>
-      <height>28</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>150</y>
-      <width>331</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Путь для сохранения результирующих файлов:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>180</y>
       <width>211</width>
       <height>28</height>
      </rect>
@@ -196,12 +173,12 @@
      <rect>
       <x>60</x>
       <y>390</y>
-      <width>331</width>
+      <width>431</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Значение скаляра (число от 0 до 255):</string>
+     <string>Значение скаляра (число от 0 до 18 446 744 073 709 551 615):</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
@@ -215,6 +192,29 @@
     </property>
     <property name="text">
      <string>Время в секундах:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>180</y>
+      <width>211</width>
+      <height>28</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>150</y>
+      <width>331</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Путь для сохранения результирующих файлов:</string>
     </property>
    </widget>
   </widget>
