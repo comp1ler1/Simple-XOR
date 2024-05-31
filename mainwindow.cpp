@@ -14,11 +14,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->lineEdit_3->setValidator( new QIntValidator);
-    //ui->lineEdit_4->setValidator( new QIntValidator );
     ui->lineEdit_4->setInputMask("hhhhhhhhhhhhhhhh");
 
     timer = new QTimer(this);
-    //timer->setInterval(1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
 }
 
@@ -31,8 +29,7 @@ MainWindow::~MainWindow()
 std::wstring MainWindow::getCounterName(std::wstring input){
 
     std::wregex rgx(L"^.*([(][0-9]*[)][.])");
-    //std::wregex rgx2(L"[(][0-9]*[)][.]");
-    //std::wregex rgx3(L"^.*([.*][(][0-9]*[)])");
+
     std::wregex rgx4(L"^.*([.].*)");
 
     std::wcmatch temp;
@@ -135,11 +132,7 @@ void MainWindow::cipherFiles(){
 
                    if(temp_vector.empty()){
                         break;
-                       //std::wcout << tempPath << std::endl;
-
-                       //std::filesystem::copy_file(files[i].c_str(), tempString.c_str());
                    }else{
-                       //tempPath.append(files[i]);
                        std::wstring newFile = getCounterName(temp_vector[temp_vector.size() - 1]);
 
                        tempPath.append(newFile);
@@ -229,11 +222,6 @@ void MainWindow::on_pushButton_clicked()
         output_path.append(L"\\\\");
     }
 
-    //std::filesystem::copy_file("test.txt", "test1.txt");
-
-    //std::wcout << std::filesystem::current_path() << std::endl;
-    //std::wcout << output_path << std::endl;
-
     cipherFiles();
 }
 
@@ -254,20 +242,16 @@ void MainWindow::on_lineEdit_5_textChanged(const QString &arg1)
 
 void MainWindow::on_lineEdit_4_textChanged(const QString &arg1)
 {
-    //bool flag;
-    //scalar = arg1.toUInt(&flag, 10);
+
     scalar.number = arg1.toULongLong(&flag, 16);
     std::cout << arg1.toStdString() << std::endl;
     std::cout << scalar.number << std::endl;
-    //for(int i = 0; i < 8; i++){
-    //    std::cout << scalar.array[i] << std::endl;
-    //}
+
 }
 
 
 void MainWindow::on_lineEdit_3_textChanged(const QString &arg1)
 {
-    //bool flag;
     time_in_seconds = arg1.toUInt(&flag, 10);
     std::cout << time_in_seconds << std::endl;
 }

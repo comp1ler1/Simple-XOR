@@ -30,15 +30,8 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-    //void updateTime();
 
     void on_lineEdit_textChanged(const QString &arg1);
-
-    //void on_lineEdit_2_textChanged(const QString &arg1);
-
-    //void on_lineEdit_5_textChanged(const QString &arg1);
-
-    void on_lineEdit_2_textChanged(const QString &arg1);
 
     void on_lineEdit_5_textChanged(const QString &arg1);
 
@@ -48,12 +41,6 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index);
 
-    void on_comboBox_2_currentIndexChanged(int index);
-
-    void on_comboBox_2_currentTextChanged(const QString &arg1);
-
-    void on_comboBox_2_activated(int index);
-
     void updateTimer();
 
     void on_pushButton_2_clicked();
@@ -62,19 +49,23 @@ private slots:
 
 private:
 
+    Ui::MainWindow *ui;
+
+    std::wstring getCounterName(std::wstring input);
+
+    std::wstring mask, output_path;
+
     QTimer *timer;
 
-    Ui::MainWindow *ui;
     bool flag;
 
     unsigned long long time_in_seconds;
-    union buf scalar;
-    std::wstring mask, output_path;
 
-    void cipherFiles();
+    union buf scalar;
+
     std::vector<std::wstring> getFiles(std::wstring input_mask);
 
-    std::wstring getCounterName(std::wstring input);
+    void cipherFiles();
 
 };
 #endif // MAINWINDOW_H
