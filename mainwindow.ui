@@ -145,9 +145,9 @@
    <widget class="QLineEdit" name="lineEdit_3">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>340</x>
       <y>340</y>
-      <width>131</width>
+      <width>141</width>
       <height>28</height>
      </rect>
     </property>
@@ -160,7 +160,7 @@
      <rect>
       <x>60</x>
       <y>420</y>
-      <width>211</width>
+      <width>121</width>
       <height>28</height>
      </rect>
     </property>
@@ -173,19 +173,19 @@
      <rect>
       <x>60</x>
       <y>390</y>
-      <width>431</width>
+      <width>211</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>Значение скаляра (число от 0 до 18 446 744 073 709 551 615):</string>
+     <string>Константа в HEX:</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>340</y>
+      <x>340</x>
+      <y>310</y>
       <width>131</width>
       <height>20</height>
      </rect>
@@ -214,7 +214,33 @@
      </rect>
     </property>
     <property name="text">
-     <string>Путь для сохранения результирующих файлов:</string>
+     <string>Путь для сохранения выходных файлов:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>490</y>
+      <width>161</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Остановить таймер</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>440</y>
+      <width>161</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Запустить таймер</string>
     </property>
    </widget>
   </widget>

@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QTimer>
+//#include <QTime>
+#include <QObject>
 #include <QMainWindow>
 #include <iostream>
 #include <string>
@@ -9,6 +12,7 @@
 #include <vector>
 #include <fstream>
 #include <regex>
+//#include <csdio>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -44,7 +48,22 @@ private slots:
 
     void on_comboBox_currentIndexChanged(int index);
 
+    void on_comboBox_2_currentIndexChanged(int index);
+
+    void on_comboBox_2_currentTextChanged(const QString &arg1);
+
+    void on_comboBox_2_activated(int index);
+
+    void updateTimer();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 private:
+
+    QTimer *timer;
+
     Ui::MainWindow *ui;
     bool flag;
 

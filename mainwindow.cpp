@@ -1,6 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
+void MainWindow::updateTimer(){
+    std::cout << "Time is over" << std::endl;
+
+    on_pushButton_clicked();
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -10,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->lineEdit_4->setValidator( new QIntValidator );
     ui->lineEdit_4->setInputMask("hhhhhhhhhhhhhhhh");
 
+    timer = new QTimer(this);
+    //timer->setInterval(1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
 }
 
 MainWindow::~MainWindow()
@@ -139,56 +149,79 @@ void MainWindow::cipherFiles(){
                }
                std::wcout << tempString << std::endl;
                //std::filesystem::CopyFileW(files[i], tempString);
-           }
 
-           in.open(files[i].c_str(), std::ios::binary);
-           out.open(tempString.c_str(), std::ios::binary);
+               in.open(files[i].c_str(), std::ios::binary);
+               out.open(tempString.c_str(), std::ios::binary);
 
-           while(!in.eof()){
-                //in.get(a.array, n);
-               int j = 0;
-               for (;j < 8 && in.tellg() != -1; ++j){
-                    in.read(a.array + j, 1);
-                    a.array[j] ^= scalar.array[7 - j];
+               while(!in.eof()){
+                    //in.get(a.array, n);
+                   int j = 0;
+                   for (;j < 8 && in.tellg() != -1; ++j){
+                        in.read(a.array + j, 1);
+                        a.array[j] ^= scalar.array[7 - j];
+                   }
+
+                    if(!in.eof())
+                        out.write(a.array, j);
+                    else
+                        out.write(a.array, j - 1);
                }
-                //in.read(a.array, n);
-                //std::cout << in.tellg() << std::endl;
-                //if(in.tellg() < 0){
-                //    count = in.tellg() + n;
-                //}else{
-                //count = in.tellg() - count;
-                //}
-               //a.number ^= scalar;
 
-                //if(j == 8)
-                //    out.write(a.array, j);
-                //else
-                //    out.write(a.array, j - 1);
+               in.close();
+               out.close();
+           }
+           else{
+               tempString = files[i];
+               std::fstream file(files[i].c_str(), std::ios::in | std::ios::out | std::ios::binary);
 
-                if(!in.eof())
-                    out.write(a.array, j);
-                else
-                    out.write(a.array, j - 1);
+               unsigned long long count = 0;
+               while(!file.eof()){
+                    //in.get(a.array, n);
+                   int j = 0;
+                   for (;j < 8 && file.tellg() != -1; ++j){
+                        file.read(a.array + j, 1);
+                        a.array[j] ^= scalar.array[7 - j];
+                   }
+
+                    if(!file.eof()){
+                        count += j;
+                        file.seekp(count - j);
+                        file.write(a.array, j);
+                    }
+                    else{
+                        file.clear();
+                        count += j;
+                        file.seekp(count - j);
+                        file.write(a.array, j - 1);
+                        break;
+                    }
+               }
+
+               file.close();
+               //continue;
+
            }
 
-           in.close();
-           out.close();
+            if(ui->checkBox->checkState()){
+                const std::string s2(files[i].begin(), files[i].end());
+                remove(s2.c_str());
+            }
 
         }
-        else{
-            //std::cout << GetLastError() << std::endl;
 
-            //std::cout << "File ";
-            //std::wcout << files[i];
-            //std::cout << " was opened by other application" << std::endl;
-        }
     }
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {
     std::cout << "Button is clicked" << std::endl;
+    std::cout << ui->comboBox_2->currentIndex() << std::endl;
+    if(ui->comboBox_2->currentIndex()){
+        timer->setInterval(1000 * time_in_seconds);
+        timer->start();
+    }else{
+        timer->stop();
+    }
 
     if(output_path.empty()){
         output_path = std::filesystem::current_path();
@@ -244,5 +277,18 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     std::cout << "Current index: " << index << std::endl;
     std::cout << ui->comboBox->currentIndex() << std::endl;
+}
+
+
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    timer->stop();
+}
+
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    timer->start();
 }
 
