@@ -207,7 +207,7 @@ void MainWindow::cipherFiles(){
            }
 
             if(ui->checkBox->checkState()){
-                const std::string s2(files[i].begin(), files[i].end());
+                const std::string s2(currentFile.begin(), currentFile.end());
                 remove(s2.c_str());
             }
 
