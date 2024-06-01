@@ -53,7 +53,7 @@ private:
 
     std::wstring getCounterName(std::wstring input);
 
-    std::wstring mask, output_path;
+    std::wstring mask, output_path, input_path;
 
     QTimer *timer;
 

@@ -103,9 +103,10 @@ void MainWindow::cipherFiles(){
 
     for(size_t i = 0; i < files.size(); i++){
         //std::ifstream in(files[i].c_str());
+        std::wstring currentFile = input_path + files[i];
 
         HANDLE fh;
-        fh = CreateFileW( files[i].c_str(), GENERIC_WRITE, 0, NULL,
+        fh = CreateFileW( currentFile.c_str(), GENERIC_WRITE, 0, NULL,
                          CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
 
         if (ERROR_SHARING_VIOLATION != GetLastError())
@@ -143,7 +144,7 @@ void MainWindow::cipherFiles(){
                std::wcout << tempString << std::endl;
                //std::filesystem::CopyFileW(files[i], tempString);
 
-               in.open(files[i].c_str(), std::ios::binary);
+               in.open(currentFile.c_str(), std::ios::binary);
                out.open(tempString.c_str(), std::ios::binary);
 
                while(!in.eof()){
@@ -164,8 +165,18 @@ void MainWindow::cipherFiles(){
                out.close();
            }
            else{
-               tempString = files[i];
-               std::fstream file(files[i].c_str(), std::ios::in | std::ios::out | std::ios::binary);
+               //tempString = files[i];
+               tempString.append(files[i]);
+
+                //if(std::filesystem::exists(tempString)){
+                //    std::filesystem::remove(tempString);
+                //}
+               if((input_path + files[i]) != tempString){
+                    std::filesystem::remove(tempString);
+                    std::filesystem::copy_file(input_path + files[i], tempString);
+               }
+
+               std::fstream file(tempString.c_str(), std::ios::in | std::ios::out | std::ios::binary);
 
                unsigned long long count = 0;
                while(!file.eof()){
@@ -217,9 +228,14 @@ void MainWindow::on_pushButton_clicked()
     }
 
     if(output_path.empty()){
-        output_path = std::filesystem::current_path();
-        //std::wcout << output_path << std::endl;
-        output_path.append(L"\\\\");
+        std::wstring temp_path = std::filesystem::current_path();
+        temp_path = temp_path + L"\\";
+        //if(input_path == temp_path)
+        //    output_path = input_path + mask;
+        //else
+        //    output_path = mask;
+        output_path = input_path;
+        //output_path.append(L"\\\\");
     }
 
     cipherFiles();
@@ -230,6 +246,21 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
     std::cout << arg1.toStdString() << std::endl;
     mask = arg1.toStdWString();
+
+    std::wstring directory;
+    const size_t last_slash_idx = mask.rfind('\\');
+    if (std::string::npos != last_slash_idx)
+    {
+        directory = mask.substr(0, last_slash_idx);
+    }
+    if(!directory.empty()){
+        input_path = directory;
+    }
+    else{
+        input_path = std::filesystem::current_path();
+    }
+
+    input_path.append(L"\\");
 }
 
 
