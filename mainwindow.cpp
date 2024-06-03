@@ -228,8 +228,8 @@ void MainWindow::on_pushButton_clicked()
     }
 
     if(output_path.empty()){
-        std::wstring temp_path = std::filesystem::current_path();
-        temp_path = temp_path + L"\\";
+        //std::wstring temp_path = std::filesystem::current_path();
+        //temp_path = temp_path + L"\\";
         //if(input_path == temp_path)
         //    output_path = input_path + mask;
         //else
@@ -268,6 +268,10 @@ void MainWindow::on_lineEdit_5_textChanged(const QString &arg1)
 {
     std::cout << arg1.toStdString() << std::endl;
     output_path = arg1.toStdWString();
+    if (output_path[output_path.length() - 1] != L'\\' && !output_path.empty()){
+        output_path.append(L"\\");
+        std::cout << output_path.length() << std::endl;
+    }
 }
 
 
